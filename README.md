@@ -1,4 +1,4 @@
-# 🧠 AI Legal Document Analyzer
+# 🧠 LexiLens - AI Powered Legal Document Analyzer
 
 An intelligent system that analyzes legal documents using Natural Language Processing (NLP) to extract key information, identify risks, and provide simplified explanations.
 
@@ -48,7 +48,7 @@ Legal_AI_Analyzer/
 
 ```
 
-🚀 Getting Started
+## 🚀 Getting Started
 1. Clone the Repository
    ```bash
    git clone https://github.com/desaiyash21/Legal_AI_Analyzer.git
