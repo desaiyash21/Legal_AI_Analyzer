@@ -16,9 +16,11 @@ database/*.db
 database/*.sqlite
 
 # Uploads
-uploads/
+uploads/*
+!uploads/.gitkeep
 *.pdf
 *.docx
+
 
 # Build outputs
 client/build/
