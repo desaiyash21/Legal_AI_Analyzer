@@ -9,13 +9,17 @@ const { validateFile } = require('../middleware/fileValidation');
 
 const router = express.Router();
 
-// Configure multer for file uploads
+//  IMPORTANT: Use __dirname and resolve path
+const uploadDir = path.resolve(__dirname, '../../uploads');
+
+//  Ensure the uploads directory exists before multer tries to use it
+if (!fs.existsSync(uploadDir)) {
+  fs.mkdirSync(uploadDir, { recursive: true });
+}
+
+//  Multer storage config
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    const uploadDir = path.join(__dirname, '../../uploads');
-    if (!fs.existsSync(uploadDir)) {
-      fs.mkdirSync(uploadDir, { recursive: true });
-    }
     cb(null, uploadDir);
   },
   filename: (req, file, cb) => {
@@ -24,15 +28,16 @@ const storage = multer.diskStorage({
   }
 });
 
+//  Multer instance
 const upload = multer({
   storage: storage,
   limits: {
-    fileSize: 10 * 1024 * 1024, // 10MB limit
+    fileSize: 10 * 1024 * 1024, // 10 MB
   },
   fileFilter: (req, file, cb) => {
     const allowedTypes = ['.pdf', '.docx'];
     const ext = path.extname(file.originalname).toLowerCase();
-    
+
     if (allowedTypes.includes(ext)) {
       cb(null, true);
     } else {
@@ -41,10 +46,10 @@ const upload = multer({
   }
 });
 
-// Upload and analyze document
+//  Upload and analyze document
 router.post('/', upload.single('document'), validateFile, uploadController.uploadAndAnalyze);
 
-// Upload multiple documents for comparison
+//  Upload multiple documents
 router.post('/multiple', upload.array('documents', 5), validateFile, uploadController.uploadMultiple);
 
-module.exports = router; 
+module.exports = router;
