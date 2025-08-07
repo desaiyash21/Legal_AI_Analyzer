@@ -104,6 +104,7 @@ The application will be available at:
 
 MIT License - see LICENSE file for details 
 
-## Deployed on Netlify
+## Deployment
 
-https://lustrous-meringue-47884c.netlify.app/
+- **Netlify**: https://lustrous-meringue-47884c.netlify.app/
+- **Render**:  https://lexilens-ai-document-analyzer.onrender.com
