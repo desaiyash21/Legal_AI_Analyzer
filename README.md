@@ -1,4 +1,4 @@
-# AI Legal Document Analyzer
+# 🧠 AI Legal Document Analyzer
 
 An intelligent system that analyzes legal documents using Natural Language Processing (NLP) to extract key information, identify risks, and provide simplified explanations.
 
@@ -55,21 +55,21 @@ Legal_AI_Analyzer/
    cd Legal_AI_Analyzer
    ```
 2. Install Dependencies
-  Install both frontend and backend packages:
-  ```bash
-  npm run install-all
-  ```
-  If install-all script isn't defined, manually run:
-  ```bash
-  cd client && npm install
-  cd ../server && npm install
-  ```
+   Install both frontend and backend packages:
+   ```bash
+   npm run install-all
+   ```
+   If install-all script isn't defined, manually run:
+   ```bash
+   cd client && npm install
+   cd ../server && npm install
+   ```
 3. Create Environment Variables
-  Create a .env file in the server/ directory:
-  ```bash
-  PORT=5000
-  NODE_ENV=production
-  ```
+   Create a .env file in the server/ directory:
+   ```bash
+   PORT=5000
+   NODE_ENV=production
+   ```
 4. Run the Application Locally
    ```bash
    npm run dev
