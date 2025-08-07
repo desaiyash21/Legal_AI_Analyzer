@@ -1,4 +1,12 @@
 const express = require('express');
+const fs = require('fs');
+
+//  Ensure uploads folder exists
+const uploadsPath = path.join(__dirname, '../uploads');
+if (!fs.existsSync(uploadsPath)) {
+  fs.mkdirSync(uploadsPath, { recursive: true });
+  console.log(' uploads folder created at runtime');
+}
 const cors = require('cors');
 const helmet = require('helmet');
 const path = require('path');
