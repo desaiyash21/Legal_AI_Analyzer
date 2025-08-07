@@ -1,0 +1,19 @@
+services:
+  - type: web
+    name: ai-doc-analyzer-backend
+    env: node
+    buildCommand: cd server && npm install
+    startCommand: node index.js
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 10000
+    autoDeploy: true
+
+  - type: web
+    name: ai-doc-analyzer-frontend
+    env: node
+    buildCommand: cd client && npm install && npm run build
+    staticPublishPath: client/build
+    autoDeploy: true
