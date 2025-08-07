@@ -13,7 +13,7 @@ services:
 
   - type: web
     name: ai-doc-analyzer-frontend
-    env: node
+    env: static
     buildCommand: cd client && npm install && npm run build
     staticPublishPath: client/build
     autoDeploy: true
