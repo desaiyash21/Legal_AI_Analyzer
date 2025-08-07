@@ -27,51 +27,53 @@ An intelligent system that analyzes legal documents using Natural Language Proce
 ## Project Structure
 
 ```
-ai-legal-document-analyzer/
-├── client/                 # React frontend
-│   ├── public/
+Legal_AI_Analyzer/
+├── client/                  # React frontend
 │   ├── src/
 │   │   ├── components/
 │   │   ├── pages/
-│   │   ├── services/
-│   │   ├── types/
-│   │   └── utils/
+│   │   └── services/
 │   └── package.json
-├── server/                 # Node.js backend
-│   ├── controllers/
-│   ├── middleware/
-│   ├── models/
+├── server/                  # Node backend
 │   ├── routes/
+│   ├── controllers/
 │   ├── services/
 │   └── utils/
-├── uploads/               # File upload directory
-├── database/              # SQLite database
-├── package.json
+├── uploads/                 # Uploaded files
+├── database/                # SQLite database
+├── render.yaml              # Render deployment config
+├── .env                     # Environment variables
+├── .gitignore
 └── README.md
+
 ```
 
-## Installation
-
-1. Clone the repository:
-```bash
-git clone <repository-url>
-cd ai-legal-document-analyzer
-```
-
-2. Install dependencies:
-```bash
-npm run install-all
-```
-
-3. Create environment file:
-```bash
-cp .env.example .env
-```
-
-4. Start the development server:
-```bash
-npm run dev
-```
+🚀 Getting Started
+1. Clone the Repository
+   ```bash
+   git clone https://github.com/desaiyash21/Legal_AI_Analyzer.git
+   cd Legal_AI_Analyzer
+   ```
+2. Install Dependencies
+  Install both frontend and backend packages:
+  ```bash
+  npm run install-all
+  ```
+  If install-all script isn't defined, manually run:
+  ```bash
+  cd client && npm install
+  cd ../server && npm install
+  ```
+3. Create Environment Variables
+  Create a .env file in the server/ directory:
+  ```bash
+  PORT=5000
+  NODE_ENV=production
+  ```
+4. Run the Application Locally
+   ```bash
+   npm run dev
+   ```
 
 The application will be available at:
 - Frontend: http://localhost:3000
@@ -106,5 +108,4 @@ MIT License - see LICENSE file for details
 
 ## Deployment
 
-- **Netlify**: https://lustrous-meringue-47884c.netlify.app/
 - **Render**:  https://lexilens-ai-document-analyzer.onrender.com
