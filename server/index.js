@@ -1,47 +1,44 @@
 const express = require('express');
-
 const cors = require('cors');
 const helmet = require('helmet');
 const path = require('path');
-require('dotenv').config();
-
-
-
-//  Ensure uploads folder exists
-const uploadsPath = path.join(__dirname, '../uploads');
 const fs = require('fs');
-if (!fs.existsSync(uploadsPath)) {
-  fs.mkdirSync(uploadsPath, { recursive: true });
-  console.log(' uploads folder created at runtime');
-}
-
-const uploadRoutes = require('./routes/upload');
-const documentRoutes = require('./routes/documents');
-const analysisRoutes = require('./routes/analysis');
+require('dotenv').config();
 
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-// Middleware
+//  Ensure 'uploads' folder exists before any middleware/routes try to access it
+const uploadsPath = path.join(__dirname, '../uploads');
+if (!fs.existsSync(uploadsPath)) {
+  fs.mkdirSync(uploadsPath, { recursive: true });
+  console.log('📁 uploads folder created at runtime');
+}
+
+//  Middleware
 app.use(helmet());
 app.use(cors());
 app.use(express.json({ limit: '50mb' }));
 app.use(express.urlencoded({ extended: true, limit: '50mb' }));
 
-// Serve uploaded files
-app.use('/uploads', express.static(path.join(__dirname, '../uploads')));
+//  Serve uploaded files (very important for public access after deployment)
+app.use('/uploads', express.static(uploadsPath));
 
-// Routes
+//  Routes
+const uploadRoutes = require('./routes/upload');
+const documentRoutes = require('./routes/documents');
+const analysisRoutes = require('./routes/analysis');
+
 app.use('/api/upload', uploadRoutes);
 app.use('/api/documents', documentRoutes);
 app.use('/api/analysis', analysisRoutes);
 
-// Health check endpoint
+//  Health Check Endpoint
 app.get('/api/health', (req, res) => {
   res.json({ status: 'OK', message: 'AI Legal Document Analyzer API is running' });
 });
 
-// Error handling middleware
+//  Error Handler
 app.use((err, req, res, next) => {
   console.error(err.stack);
   res.status(500).json({ 
@@ -50,22 +47,22 @@ app.use((err, req, res, next) => {
   });
 });
 
+//  Serve frontend in production
+const buildPath = path.join(__dirname, '../client/build');
+app.use(express.static(buildPath));
 
-// Serve React frontend from client/build
-app.use(express.static(path.join(__dirname, '../client/build')));
-
-// Fallback: send index.html for any route not handled above (like React Router)
+//  React SPA fallback
 app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, '../client/build', '/index.html'));
+  res.sendFile(path.join(buildPath, 'index.html'));
 });
 
-
-// 404 handler
-app.use('*', (req, res) => {
+//  404 Fallback for unmatched API routes
+app.use((req, res) => {
   res.status(404).json({ error: 'Route not found' });
 });
 
+//  Start Server
 app.listen(PORT, () => {
   console.log(`🚀 Server running on port ${PORT}`);
   console.log(`📁 API available at http://localhost:${PORT}/api`);
-}); 
+});
